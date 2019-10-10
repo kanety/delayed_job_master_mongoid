@@ -1,0 +1,10 @@
+language: ruby
+services:
+  - mongodb
+rvm:
+  - 2.5
+  - 2.6
+gemfile:
+  - gemfiles/mongoid.gemfile
+script:
+  - bundle exec rspec
