@@ -1,0 +1,34 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        mongodb: [4.4]
+        ruby: [2.5, 2.6, 2.7, 3.0]
+        delayed_job_mongoid: [2.3]
+        delayed_job_master: [2.0]
+
+    name: ruby ${{ matrix.ruby }}, delayed_job_mongoid ${{ matrix.delayed_job_mongoid }}, delayed_job_master ${{ matrix.delayed_job_master }}
+
+    env:
+      BUNDLE_GEMFILE: gemfiles/mongoid.gemfile
+      DELAYED_JOB_MONGOID: ${{ matrix.delayed_job_mongoid }}
+      DELAYED_JOB_MASTER: ${{ matrix.delayed_job_master }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: supercharge/mongodb-github-action@1.6.0
+      with:
+        mongodb-version: ${{ matrix.mongodb }}
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+    - name: Run test
+      run: |
+        bundle exec rspec

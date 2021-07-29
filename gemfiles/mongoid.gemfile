@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
-gem "delayed_job_mongoid", "~> 2.3.0"
+gem "delayed_job_master", "~> #{ENV['DELAYED_JOB_MASTER']}"
+gem "delayed_job_mongoid", "~> #{ENV['DELAYED_JOB_MONGOID']}"
 
 gemspec path: "../"
