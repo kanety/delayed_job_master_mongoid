@@ -4,8 +4,9 @@ A mongoid adapter for delayed_job_master.
 
 ## Dependencies
 
-* ruby 2.3+
-* delayed_job_master 2.0
+* ruby 2.5+
+* delayed_job_mongoid 2.3+
+* delayed_job_master 2.0+
 
 ## Installation
 
